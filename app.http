@@ -11,3 +11,7 @@ PUT http://localhost:3002/players/2/
 {
   "playerName": "Raju"
 }
+
+
+###
+GET http://localhost:3002/matches/18/

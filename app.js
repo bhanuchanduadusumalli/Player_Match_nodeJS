@@ -29,6 +29,14 @@ const convertPlayerDbObjectToResponseObject = (player) => {
     PlayerName: player.player_name,
   };
 };
+
+const convertMatchDbObjectToResponseObject = (match) => {
+  return {
+    matchId: match.match_id,
+    match: match.match,
+    year: match.year,
+  };
+};
 //Get request
 app.get("/players/", async (request, response) => {
   const allPlayers = `select * from player_details`;
@@ -55,4 +63,12 @@ app.put("/players/:playerId/", async (request, response) => {
   const updatePlayer = `update player_details set player_name='${playername}' where player_id=${playerId}`;
   await db.get(updatePlayer);
   response.send("Player Details Updated");
+});
+
+//Get request
+app.get("/matches/:matchId/", async (request, response) => {
+  const { matchId } = request.params;
+  const getMatch = `select * from match_details where match_id=${matchId}`;
+  const singleMatch = await db.get(getMatch);
+  response.send(convertMatchDbObjectToResponseObject(singleMatch));
 });
