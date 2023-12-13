@@ -15,3 +15,7 @@ PUT http://localhost:3002/players/2/
 
 ###
 GET http://localhost:3002/matches/18/
+
+
+###
+GET http://localhost:3002/players/5/matches/

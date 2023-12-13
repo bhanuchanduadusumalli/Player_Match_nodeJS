@@ -72,3 +72,18 @@ app.get("/matches/:matchId/", async (request, response) => {
   const singleMatch = await db.get(getMatch);
   response.send(convertMatchDbObjectToResponseObject(singleMatch));
 });
+
+//Get request
+app.get("/players/:playerId/matches/", async (request, response) => {
+  const { playerId } = request.params;
+  const getMatches = `select 
+  match_details.match_id as match_id,match_details.match as match,match_details.year as year 
+  from
+  match_details join player_match_score 
+  on match_details.match_id=player_match_score.match_id
+  where player_match_score.player_id=${playerId}`;
+  const matches = await db.all(getMatches);
+  response.send(
+    matches.map((eachMatch) => convertMatchDbObjectToResponseObject(eachMatch))
+  );
+});
