@@ -19,3 +19,7 @@ GET http://localhost:3002/matches/18/
 
 ###
 GET http://localhost:3002/players/5/matches/
+
+
+###
+GET http://localhost:3002/matches/18/players/

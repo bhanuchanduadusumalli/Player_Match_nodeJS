@@ -87,3 +87,18 @@ app.get("/players/:playerId/matches/", async (request, response) => {
     matches.map((eachMatch) => convertMatchDbObjectToResponseObject(eachMatch))
   );
 });
+
+//get request
+app.get("/matches/:matchId/players/", async (request, response) => {
+  const { matchId } = request.params;
+  const getAllPlayers = `select 
+    player_details.player_id,player_details.player_name
+    from player_details natural join player_match_score
+    where player_match_score.match_id=${matchId}`;
+  const players = await db.all(getAllPlayers);
+  console.log(players);
+  response.send(
+    players
+    // players.map((player) => convertPlayerDbObjectToResponseObject(player))
+  );
+});
