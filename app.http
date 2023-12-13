@@ -1,1 +1,13 @@
 GET http://localhost:3002/players/
+
+
+###
+GET http://localhost:3002/players/2/
+
+
+###
+PUT http://localhost:3002/players/2/
+
+{
+  "playerName": "Raju"
+}

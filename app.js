@@ -39,3 +39,20 @@ app.get("/players/", async (request, response) => {
     )
   );
 });
+
+//Get request
+app.get("/players/:playerId/", async (request, response) => {
+  const { playerId } = request.params;
+  const getPlayer = `select * from player_details where player_id=${playerId}`;
+  const singlePlayer = await db.get(getPlayer);
+  response.send(convertPlayerDbObjectToResponseObject(singlePlayer));
+});
+
+//Put request
+app.put("/players/:playerId/", async (request, response) => {
+  const { playerId } = request.params;
+  const { playerName } = request.body;
+  const updatePlayer = `update player_details set player_name='${playername}' where player_id=${playerId}`;
+  await db.get(updatePlayer);
+  response.send("Player Details Updated");
+});
